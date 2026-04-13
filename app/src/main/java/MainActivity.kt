@@ -1,13 +1,15 @@
-package __PACKAGE_NAME__
+package com.cotlin.helloandroid
 
 import android.os.Bundle
 import com.highcapable.betterandroid.ui.component.activity.AppBindingActivity
-import __PACKAGE_NAME__.databinding.ActivityMainBinding
+import com.cotlin.helloandroid.databinding.ActivityMainBinding
 
 class MainActivity : AppBindingActivity<ActivityMainBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // TODO Start your coding here.
+        
+        // Gán text vào TextView (có sẵn trong binding)
+        binding.messageText.text = "Hello! App runs successfully!"
     }
 }
