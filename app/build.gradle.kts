@@ -1,4 +1,9 @@
 plugins {
+    id("com.android.application") version "8.5.0" apply false
+}
+
+// Hoặc nếu là app module (không phải root):
+plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
 }
