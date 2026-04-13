@@ -21,8 +21,11 @@ jobs:
         sudo apt-get update
         sudo apt-get install gradle -y
     
-    - name: Build APK (without wrapper)
-      run: gradle assembleDebug
+    - name: Regenerate Gradle Wrapper
+      run: gradle wrapper --gradle-version=8.5
+    
+    - name: Build APK
+      run: ./gradlew :app:assembleDebug
     
     - name: Upload APK
       uses: actions/upload-artifact@v4
