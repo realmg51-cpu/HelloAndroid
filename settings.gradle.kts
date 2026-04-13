@@ -12,5 +12,5 @@ plugins {
 sweetProperty {
     rootProject { all { isEnable = false } }
 }
-rootProject.name = "__PROJECT_NAME__"
+rootProject.name = "com.cotlin.helloandroid"
 include(":app")
