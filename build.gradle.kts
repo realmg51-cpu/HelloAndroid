@@ -1,5 +1,4 @@
-plugins {
-    autowire(libs.plugins.android.application) apply false
-    autowire(libs.plugins.android.library) apply false
-    autowire(libs.plugins.kotlin.android) apply false
+// Top-level build file
+tasks.register("clean", Delete::class) {
+    delete(rootProject.buildDir)
 }
