@@ -15,10 +15,21 @@ jobs:
         java-version: 17
         distribution: 'temurin'
     
-    - name: Build APK
+    - name: Debug - List files
       run: |
+        ls -la gradle/wrapper/ 2>/dev/null || echo "No wrapper dir"
+        cat gradle/wrapper/gradle-wrapper.properties 2>/dev/null || echo "No properties"
+    
+    - name: Regenerate Gradle Wrapper
+      run: |
+        sudo apt-get update
+        sudo apt-get install gradle -y
+        rm -rf gradle/wrapper gradlew gradlew.bat
+        gradle wrapper --gradle-version 8.5
         chmod +x gradlew
-        ./gradlew assembleDebug
+    
+    - name: Build APK
+      run: ./gradlew assembleDebug
     
     - name: Upload APK
       uses: actions/upload-artifact@v4
