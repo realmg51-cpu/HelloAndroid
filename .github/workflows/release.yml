@@ -3,7 +3,7 @@ name: Release APK
 on:
   push:
     tags:
-      - 'v*'  # Khi push tag v1.0.0, v1.0.1, v2.0.0, ...
+      - 'v*'
   workflow_dispatch:
     inputs:
       tag_name:
@@ -13,12 +13,10 @@ on:
 
 jobs:
   build:
-    name: Build and Release APK
     runs-on: ubuntu-latest
     
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+    - uses: actions/checkout@v4
     
     - name: Set up JDK 17
       uses: actions/setup-java@v4
@@ -26,10 +24,13 @@ jobs:
         java-version: 17
         distribution: 'temurin'
     
-    - name: Build APK
+    - name: Install Gradle
       run: |
-        chmod +x gradlew
-        ./gradlew :app:assembleDebug
+        sudo apt-get update
+        sudo apt-get install gradle -y
+    
+    - name: Build APK
+      run: gradle :app:assembleDebug
     
     - name: Get version name
       id: get_version
@@ -47,25 +48,17 @@ jobs:
         tag_name: ${{ steps.get_version.outputs.version }}
         name: "Release ${{ steps.get_version.outputs.version }}"
         body: |
-          ## 📱 下载 APK | Download APK
+          ## 📱 下载 APK
           
-          ### 中文
           直接下载下方 APK 文件安装到 Android 设备或 TV。
           
-          ### English
-          Download the APK below and install on your Android device or TV.
-          
           ---
-          
-          **📦 更新内容 | What's New**
-          - 首次发布 | First release
-          - 显示 "Hi" 消息 | Display "Hi" message
-          - 支持 Android TV | Android TV compatible
-          
+          **更新内容:**
+          - 首次发布
+          - 显示 "Hi" 消息
+          - 支持 Android TV
         files: |
           app/build/outputs/apk/debug/app-debug.apk
-        draft: false
-        prerelease: false
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     
