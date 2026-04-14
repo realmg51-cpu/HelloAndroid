@@ -1,4 +1,4 @@
-package __PACKAGE_NAME__
+package com.cotlin.helloandroid
 
 import org.junit.Test
 
